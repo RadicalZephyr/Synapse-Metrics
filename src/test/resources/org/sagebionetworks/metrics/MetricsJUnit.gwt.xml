@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='org.sagebionetworks.metrics.Metrics' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/Metrics/greet" class="org.sagebionetworks.metrics.server.GreetingServiceImpl" />
+
+</module>

@@ -1,0 +1,8 @@
+target
+.maven
+/.classpath
+/.project
+/.settings
+/.gwt
+/src/main/gwt-unitCache/
+*.launch
