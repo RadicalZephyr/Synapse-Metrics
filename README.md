@@ -1,7 +1,7 @@
 Synapse Metrics
 ===============
 
-A dashboard for reporting on usage metrics gathered by the Synapse Repository Services[1]
+A dashboard for reporting on usage metrics gathered by the [Synapse Repository Services][1]
 
 Contributing
 ------------
