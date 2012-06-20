@@ -11,28 +11,20 @@ h1 {
 }
 
 #statTableContainer {
-	width: 40%;
+	width: 80%;
 	margin: 0 auto;
-}
-
-#usersTable {
-  margin: 20px;
-  border-top: thin solid #444444;
-  border-left: thin solid #444444;
-  border-right: thin solid #111111;
-  border-bottom: thin solid #111111;
-  background-color:  #f0f0f0;
-}
-
-#projectsTable {
-  margin: 40px;
-  border-top: thin solid #444444;
-  border-left: thin solid #444444;
-  border-right: thin solid #111111;
-  border-bottom: thin solid #111111;
-  background-color:  #f0f0f0;
 }
 
 .header-row {
 	font-weight: bold;
 }
+
+.margin-table {
+	margin: 40px;
+  border-top: thin solid #444444;
+  border-left: thin solid #444444;
+  border-right: thin solid #111111;
+  border-bottom: thin solid #111111;
+  background-color:  #f0f0f0;
+}
+	
