@@ -11,8 +11,11 @@ import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -38,7 +41,40 @@ public class Metrics implements EntryPoint {
    * This is the entry point method.
    */
   public void onModuleLoad() {
-    final Button sendButton = new Button("Send");
+	  String[] users = new String[] {"Bruce Hoff", "Dave Burdick", "Bennet Ng", "Geoff Shannon"};
+	  String[] userDays = new String[] {"10", "2", "14", "1", "7"};
+	  String[] projects = new String[] {"Metagenomics", "Synapse Umbrella"};
+	  String[] projectScore = new String[] {"11", "4"};
+
+	  final Panel panel = new HorizontalPanel();
+	  
+	  FlexTable activeUsers = new FlexTable();
+	  FlexTable activeProjects = new FlexTable();
+	  
+	  activeUsers.getElement().setId("usersTable");
+	  activeUsers.getRowFormatter().setStylePrimaryName(0, "header-row");
+	  activeUsers.setText(0, 0, "Username");
+	  activeUsers.setText(0, 1, "Last Activity");
+	  for (int i = 0; i < 4; i++) {
+		  activeUsers.setText(i+1, 0, users[i]);
+		  activeUsers.setText(i+1, 1, userDays[i]);
+	  }
+	  
+	  activeProjects.getElement().setId("projectsTable");
+	  activeProjects.getRowFormatter().setStylePrimaryName(0, "header-row");
+	  activeProjects.setText(0, 0, "Project Name");
+	  activeProjects.setText(0, 1, "Project Score");
+	  for (int i = 0; i < 2; i++) {
+
+		activeProjects.setText(i+1, 0, projects[i]);
+		activeProjects.setText(i+1, 1, projectScore[i]);
+	  }
+	  
+	  panel.add(activeUsers);
+	  panel.add(activeProjects);
+	  RootPanel.get("statTableContainer").add(panel);
+	
+/*    final Button sendButton = new Button("Send");
     final TextBox nameField = new TextBox();
     nameField.setText("Enter your name");
     final Label errorLabel = new Label();
@@ -86,25 +122,25 @@ public class Metrics implements EntryPoint {
 
     // Create a handler for the sendButton and nameField
     class MyHandler implements ClickHandler, KeyUpHandler {
-      /**
+      *//**
        * Fired when the user clicks on the sendButton.
-       */
+       *//*
       public void onClick(ClickEvent event) {
         sendNameToServer();
       }
 
-      /**
+      *//**
        * Fired when the user types in the nameField.
-       */
+       *//*
       public void onKeyUp(KeyUpEvent event) {
         if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
           sendNameToServer();
         }
       }
 
-      /**
+      *//**
        * Send the name from the nameField to the server and wait for a response.
-       */
+       *//*
       private void sendNameToServer() {
         // First, we validate the input.
         errorLabel.setText("");
@@ -142,6 +178,6 @@ public class Metrics implements EntryPoint {
     // Add a handler to send the name to the server
     MyHandler handler = new MyHandler();
     sendButton.addClickHandler(handler);
-    nameField.addKeyUpHandler(handler);
+    nameField.addKeyUpHandler(handler);*/
   }
 }
