@@ -3,9 +3,12 @@ package org.sagebionetworks.metrics.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -37,9 +40,9 @@ public class Metrics implements EntryPoint {
 
 	  final Panel panel = new HorizontalPanel();
 	  
-	  FlexTable activeSageUsers = makeTableWithHeader("Sage", sageUsers, sageUserDays);
-	  FlexTable activeGoogleUsers = makeTableWithHeader("Google", googleUsers, googleUserDays);
-	  FlexTable activeProjects = makeTableWithHeader("Projects", projects, projectScore); 
+	  Widget activeSageUsers = makeTableWithHeader("Sage", sageUsers, sageUserDays);
+	  Widget activeGoogleUsers = makeTableWithHeader("Google", googleUsers, googleUserDays);
+	  Widget activeProjects = makeTableWithHeader("Projects", projects, projectScore); 
 	  
 	  panel.add(activeSageUsers);
 	  panel.add(activeGoogleUsers);
@@ -47,16 +50,22 @@ public class Metrics implements EntryPoint {
 	  RootPanel.get("statTableContainer").add(panel);
   }
   
-  public FlexTable makeTableWithHeader(String header, String[] col1, String[] col2) {
+  public Widget makeTableWithHeader(String header, String[] col1, String[] col2) {
+	  FlowPanel panel = new FlowPanel();
 	  FlexTable table = new FlexTable();
+	  InlineLabel label = new InlineLabel();
 	  
-	  table.addStyleName("margin-table");
+	  label.setText(header);
+	  panel.add(label);
+	  
+	  panel.addStyleName("margin-table");
 	  table.getRowFormatter().setStylePrimaryName(0, "header-row");
 	  for (int i = 0; i < col1.length; i++) {
 		  table.setText(i, 0, col1[i]);
 		  table.setText(i, 1, col2[i]);
 	  }
-
-	  return table;
+	  
+	  panel.add(table);
+	  return panel;
   }
 }

@@ -21,6 +21,10 @@ h1 {
 
 .margin-table {
 	margin: 40px;
+}
+
+.margin-table table {
+
   border-top: thin solid #444444;
   border-left: thin solid #444444;
   border-right: thin solid #111111;
