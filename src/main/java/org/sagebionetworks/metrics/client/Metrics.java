@@ -7,6 +7,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -18,21 +19,27 @@ public class Metrics implements EntryPoint {
    * This is the entry point method.
    */
   public void onModuleLoad() {
-	  String[] sageUsers = new String[] {"Users", "Bruce Hoff", "Dave Burdick", "Bennet Ng", "Geoff Shannon"};
-	  String[] sageUserDays = new String[] {"Days", "10", "2", "14", "1", "7"};
-	  String[] googleUsers = new String[] {"Users", "Jay Bean", "My Name", "Goo Gle", "En Gineer"};
-	  String[] googleUserDays = new String[] {"Days", "13", "80", "4", "2", "3"};
+	  String[] testUsersUCSC = new String[] {"Users", "jlong", "kellrott", "elinor", "ted"};
+	  String[] testUserDateUCSC = new String[] {"Days", "14-May-2012", "10-May-2012", "10-May-2012", "01-May-2012"};
+	  
+	  String[] testUsersSage = new String[] {"Users", "chris.gaiteri", "xudong.dai", "charles.ferte", "ben.sauerwine", "in.sock.jang", "erich.huang", "lara.mangravite"};
+	  String[] testUserDateSage = new String[] {"Days", "18-May-2012", "16-Apr-2012", "27-Mar-2012", "23-Apr-2012", "15-Mar-2012", "14-Mar-2012", "15-Mar-2012", "25-Mar-2012"};
+	  
 	  String[] projects = new String[] {"Name", "Metagenomics", "Synapse Umbrella"};
 	  String[] projectScore = new String[] {"Score", "11", "4"};
 
 	  final Panel panel = new HorizontalPanel();
+	  Panel userStatPanel = new VerticalPanel();
 	  
-	  Widget activeSageUsers = makeTableWithHeader("Sage", sageUsers, sageUserDays);
-	  Widget activeGoogleUsers = makeTableWithHeader("Google", googleUsers, googleUserDays);
+	  Widget activeUCSCUsers = makeTableWithHeader("soe.ucsc.org - 4 active users", testUsersUCSC, testUserDateUCSC);
+	  Widget activeSageUsers = makeTableWithHeader("sagebase.org - 7 active users", testUsersSage, testUserDateSage);
+	  
 	  Widget activeProjects = makeTableWithHeader("Projects", projects, projectScore); 
 	  
-	  panel.add(activeSageUsers);
-	  panel.add(activeGoogleUsers);
+	  userStatPanel.add(activeUCSCUsers);
+	  userStatPanel.add(activeSageUsers);
+	  
+	  panel.add(userStatPanel);
 	  panel.add(activeProjects);
 	  RootPanel.get("statTableContainer").add(panel);
   }
