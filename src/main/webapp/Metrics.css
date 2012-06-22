@@ -11,16 +11,16 @@ h1 {
 }
 
 #statTableContainer {
-	width: 80%;
-	margin: 0 auto;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .header-row {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .margin-table {
-	margin: 10px 40px;
+    margin: 10px 40px;
 }
 
 .margin-table table {
@@ -31,4 +31,4 @@ h1 {
   border-bottom: thin solid #111111;
   background-color:  #f0f0f0;
 }
-	
+    
