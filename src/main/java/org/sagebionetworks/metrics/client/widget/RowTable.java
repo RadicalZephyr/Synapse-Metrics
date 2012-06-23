@@ -2,21 +2,31 @@ package org.sagebionetworks.metrics.client.widget;
 
 import java.util.ArrayList;
 
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class RowTable extends Composite {
-    public static class Row {
-        private final Object[] rowData;
+    public static class Row implements IsSerializable {
+        private String[] rowData;
+        
+        @SuppressWarnings("unused")
+        private Row() {}
         
         public Row(Object... rowData) {
-            this.rowData = rowData;
+            this.rowData = new String[] {};
+            
+            ArrayList<String> strings = new ArrayList<String>();
+            for (Object data : rowData) {
+                strings.add(data.toString());
+            }
+            this.rowData = strings.toArray(this.rowData);
         }
 
         public String getData(int column) {
-            return rowData[column].toString(); 
+            return rowData[column]; 
         }
     }
 
