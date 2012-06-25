@@ -46,24 +46,7 @@ public class CrowdLogParser {
 		
 		// now get the users who logged in >= 3 times, omitting sage employees
 		// the following maps email domain to user
-		Map<String, Collection<String>> frequentOutsideUsers = new HashMap<String, Collection<String>>();
-		for (String name : userDays.keySet()) {
-			int at = name.indexOf("@");
-			if (at<0) {
-				System.out.println("Unexpected user name: "+name);
-				continue;
-			}
-			if (UsageMetricsUtils.isOmittedName(name)) continue;
-			Collection<Long> days = userDays.get(name);
-			if (days.size() < 3) continue;
-			String domain = name.substring(at+1);
-			Collection<String> names = frequentOutsideUsers.get(domain);
-			if (names==null) {
-				names = new HashSet<String>();
-				frequentOutsideUsers.put(domain, names);
-			}
-			names.add(name);
-		}
+		Map<String, Collection<String>> frequentOutsideUsers = getFrequentOutsideUsers(userDays);
 		int totalScore = 0;
 		System.out.println("Frequent outside users:");
 		for (String domain : frequentOutsideUsers.keySet()) {
@@ -83,6 +66,30 @@ public class CrowdLogParser {
 			totalScore += 1 + frequentOutsideUsers.get(domain).size();
 		}
 		System.out.println("\nTotal user score: "+totalScore);
+	}
+
+
+	public static Map<String, Collection<String>> getFrequentOutsideUsers(
+	        Map<String, Collection<Long>> userDays) {
+	    Map<String, Collection<String>> frequentOutsideUsers = new HashMap<String, Collection<String>>();
+	    for (String name : userDays.keySet()) {
+	        int at = name.indexOf("@");
+	        if (at<0) {
+	            System.out.println("Unexpected user name: "+name);
+	            continue;
+	        }
+	        if (UsageMetricsUtils.isOmittedName(name)) continue;
+	        Collection<Long> days = userDays.get(name);
+	        if (days.size() < 3) continue;
+	        String domain = name.substring(at+1);
+	        Collection<String> names = frequentOutsideUsers.get(domain);
+	        if (names==null) {
+	            names = new HashSet<String>();
+	            frequentOutsideUsers.put(domain, names);
+	        }
+	        names.add(name);
+	    }
+	    return frequentOutsideUsers;
 	}
 	
 	
