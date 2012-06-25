@@ -17,19 +17,13 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class Metrics implements EntryPoint {
 
     private ActiveUserServiceAsync activeUserSvc = GWT.create(ActiveUserService.class);
-    private Row[] ucscData = null;
-    private Row[] sageData = null;;
-    private Row[] projectData = null;
     
     /**
      * This is the entry point method.
      */
     public void onModuleLoad() {
+
         initActiveUserSvc();
-        
-        getActiveUsers(1);
-        getActiveUsers(2);
-        getActiveUsers(3);
         
         RowTable ucscTable = new RowTable(2, "soe.ucsc.org -- 4 active users");
         RowTable sageTable = new RowTable(2, "sagebase.org -- 7 active users");
@@ -38,13 +32,13 @@ public class Metrics implements EntryPoint {
         ucscTable.setHeadings(header);
         sageTable.setHeadings(header);
 
-        ucscTable.setRows(ucscData);
-        sageTable.setRows(sageData);
-
         RowTable projectTable = new RowTable(2, "Projects");
 
+        getActiveUsers(ucscTable, "soe.ucsc.edu");
+        getActiveUsers(sageTable, "sagebase.org");
+        getActiveUsers(projectTable, "projects");
+
         projectTable.setHeadings(new Row("Name", "Score"));
-        projectTable.setRows(projectData);
 
         final Panel panel = new HorizontalPanel();
         Panel userStatPanel = new VerticalPanel();
@@ -64,25 +58,16 @@ public class Metrics implements EntryPoint {
         }
     }
 
-    private void getActiveUsers(final int window) {
+    private void getActiveUsers(final RowTable table, String domain) {
         AsyncCallback<Row[]> callback = new AsyncCallback<Row[]>() {
             public void onFailure(Throwable caught) {
             }
 
             public void onSuccess(Row[] result) {
-                setData(window, result);
+                table.setRows(result);
             }
         };
-        activeUserSvc.getActiveUsers(window, callback);
+        activeUserSvc.getActiveUsers(domain, callback);
     }
     
-    private void setData(int window, Row[] rows) {
-        if (window == 1) {
-            ucscData = rows;
-        } else if (window == 2) {
-            sageData = rows;
-        } else {
-            projectData = rows;
-        }
-    }
 }

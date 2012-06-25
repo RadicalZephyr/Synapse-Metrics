@@ -8,6 +8,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 @RemoteServiceRelativePath("activeUsers")
 public interface ActiveUserService extends RemoteService {
 
-    Row[] getActiveUsers(int window);
+    Row[] getActiveUsers(String domain);
     
 }

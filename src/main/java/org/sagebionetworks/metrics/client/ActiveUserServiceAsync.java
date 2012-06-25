@@ -6,6 +6,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface ActiveUserServiceAsync {
 
-    void getActiveUsers(int window, AsyncCallback<Row[]> callback);
+    void getActiveUsers(String domain, AsyncCallback<Row[]> callback);
 
 }
