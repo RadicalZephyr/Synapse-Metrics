@@ -1,0 +1,8 @@
+syn164197,METABRIC competition models,ebilal@us.ibm.com in.sock.jang@sagebase.org,2
+syn150935,Synapse Commons Repository,brig.mecham@sagebase.org,0
+syn346114,devBranch Factor Library,erich.huang@sagebase.org,0
+syn346443,INCF demo,nolan.nichols@gmail.com satrajit.ghosh@gmail.com,1
+syn275039,metaGenomics,brig.mecham@sagebase.org,0
+syn313358,TCGA PAN Cancer Data Freeze June 7 2012,brig.mecham@sagebase.org,0
+syn312572,TCGA PanCancer Clusters,peter.waltman@gmail.com kellrott@soe.ucsc.edu,2
+

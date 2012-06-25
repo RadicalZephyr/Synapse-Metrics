@@ -1,7 +1,7 @@
 package org.sagebionetworks.metrics.client;
 
 import org.sagebionetworks.metrics.client.widget.RowTable;
-import static org.sagebionetworks.metrics.client.widget.RowTable.Row;
+import org.sagebionetworks.metrics.client.widget.RowTable.Row;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -16,7 +16,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class Metrics implements EntryPoint {
 
-    private ActiveUserServiceAsync activeUserSvc = GWT.create(ActiveUserService.class);
+    private TableDataServiceAsync activeUserSvc = GWT.create(TableDataService.class);
     
     /**
      * This is the entry point method.
@@ -37,7 +37,7 @@ public class Metrics implements EntryPoint {
         // Make RPC call to get data
         getActiveUsers(ucscTable, "soe.ucsc.edu");
         getActiveUsers(sageTable, "sagebase.org");
-        getActiveUsers(projectTable, "projects");
+        getActiveProjects(projectTable);
 
         projectTable.setHeadings(new Row("Name", "Score"));
 
@@ -55,7 +55,7 @@ public class Metrics implements EntryPoint {
 
     private void initActiveUserSvc() {
         if (activeUserSvc == null) {
-            activeUserSvc = GWT.create(ActiveUserService.class);
+            activeUserSvc = GWT.create(TableDataService.class);
         }
     }
 
@@ -70,5 +70,17 @@ public class Metrics implements EntryPoint {
         };
         activeUserSvc.getActiveUsers(domain, callback);
     }
-    
+ 
+    private void getActiveProjects(final RowTable table) {
+        AsyncCallback<Row[]> callback = new AsyncCallback<Row[]>() {
+            public void onFailure(Throwable caught) {
+            }
+
+            public void onSuccess(Row[] result) {
+                table.setRows(result);
+            }
+            
+        };
+        activeUserSvc.getActiveProjects(callback);
+    }
 }

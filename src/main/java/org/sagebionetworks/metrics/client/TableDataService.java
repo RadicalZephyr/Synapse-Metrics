@@ -6,8 +6,9 @@ import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
 @RemoteServiceRelativePath("activeUsers")
-public interface ActiveUserService extends RemoteService {
+public interface TableDataService extends RemoteService {
 
     Row[] getActiveUsers(String domain);
     
+    Row[] getActiveProjects();
 }

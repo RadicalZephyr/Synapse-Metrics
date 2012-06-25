@@ -11,39 +11,39 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
-import org.sagebionetworks.metrics.client.ActiveUserService;
+import org.sagebionetworks.metrics.client.TableDataService;
 import org.sagebionetworks.metrics.client.widget.RowTable.Row;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-public class ActiveUserServiceImpl extends RemoteServiceServlet 
-    implements ActiveUserService {
+public class TableDataServiceImpl extends RemoteServiceServlet 
+    implements TableDataService {
     
-    static final private String CROWD_LOG_DIRECTORY_PATH = "../../../data/crowdlogs/";
+    private static final String CROWD_LOG_DIRECTORY_PATH = "../../../data/crowdlogs/";
+    private static final String PROJECT_LOG_FILE_PATH = "../../../data/activityDump.txt";
 
     private Map<String, Collection<Row>> domainRows = new HashMap<String, Collection<Row>>();
     
-    public ActiveUserServiceImpl() {
+    public TableDataServiceImpl() {
         try {
             runLogParser(100);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
     
     public Row[] getActiveUsers(String domain) {
         Row[] data = new Row[] {};
-        if (domain.equalsIgnoreCase("projects")) {
-            data = new Row[] {new Row("Name","Score"),
-                              new Row("Metagenomics", "11"),
-                              new Row("Synapse Umbrella", "4")};
-        } else {
-            data = domainRows.get(domain).toArray(data);
-        }
+        data = domainRows.get(domain).toArray(data);
+        return data;
+    }
+
+    public Row[] getActiveProjects() {
+        Row[] data = new Row[] {new Row("Name","Score"),
+                                new Row("Metagenomics", "11"),
+                                new Row("Synapse Umbrella", "4")};
 
         return data;
     }
@@ -74,4 +74,5 @@ public class ActiveUserServiceImpl extends RemoteServiceServlet
         }
         return rows;
     }
+
 }
