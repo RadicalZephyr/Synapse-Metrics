@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,8 +24,14 @@ public class TableDataServiceImpl extends RemoteServiceServlet
     private static final String PROJECT_LOG_FILE_PATH = "../../../data/activityDump.txt";
 
     private Map<String, Collection<Row>> domainRows = new HashMap<String, Collection<Row>>();
+    private Collection<Row> projectRows = new LinkedList<Row>();
     
     public TableDataServiceImpl() {
+        try {
+            runProjectParser();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         try {
             runLogParser(100);
         } catch (IOException e) {
@@ -41,13 +48,19 @@ public class TableDataServiceImpl extends RemoteServiceServlet
     }
 
     public Row[] getActiveProjects() {
-        Row[] data = new Row[] {new Row("Name","Score"),
-                                new Row("Metagenomics", "11"),
-                                new Row("Synapse Umbrella", "4")};
-
+        Row[] data = new Row[] {};
+        data = projectRows.toArray(data);
         return data;
     }
 
+    private void runProjectParser() throws IOException {
+        Collection<SynapseProjectData> projectData = ProjectLogParser.parseSynapseProjectFile(new File(PROJECT_LOG_FILE_PATH));
+        
+        for (SynapseProjectData data : projectData) {
+            projectRows.add(data.asRow());
+        }
+    }
+    
     private void runLogParser(int window) throws IOException, ParseException {
         Date endDate = new Date();
         Date startDate = new Date(endDate.getTime()-window*24*60*60*1000L);

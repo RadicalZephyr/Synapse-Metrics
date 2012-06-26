@@ -32,14 +32,14 @@ public class Metrics implements EntryPoint {
         ucscTable.setHeadings(header);
         sageTable.setHeadings(header);
 
-        RowTable projectTable = new RowTable(2, "Projects");
+        RowTable projectTable = new RowTable(4, "Projects");
 
         // Make RPC call to get data
         getActiveUsers(ucscTable, "soe.ucsc.edu");
         getActiveUsers(sageTable, "sagebase.org");
         getActiveProjects(projectTable);
 
-        projectTable.setHeadings(new Row("Name", "Score"));
+        projectTable.setHeadings(new Row("Synapse Id", "Name", "Users", "Project Score"));
 
         final Panel panel = new HorizontalPanel();
         Panel userStatPanel = new VerticalPanel();
