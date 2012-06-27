@@ -7,13 +7,13 @@
 
   <!-- Servlets -->
   <servlet>
-    <servlet-name>activeUserServiceImpl</servlet-name>
+    <servlet-name>tableDataServiceImpl</servlet-name>
     <servlet-class>org.sagebionetworks.metrics.server.TableDataServiceImpl</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>activeUserServiceImpl</servlet-name>
-    <url-pattern>/Metrics/activeUsers</url-pattern>
+    <servlet-name>tableDataServiceImpl</servlet-name>
+    <url-pattern>/Metrics/tableData</url-pattern>
   </servlet-mapping>
 
   <!-- Default page to serve -->

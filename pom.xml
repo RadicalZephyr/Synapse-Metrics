@@ -14,10 +14,19 @@
   <properties>
     <!-- Convenience property to set the GWT version -->
     <gwtVersion>2.4.0</gwtVersion>
+    <gxtVersion>3.0.0b</gxtVersion>
     <!-- GWT needs at least java 1.5 -->
     <webappDirectory>${project.build.directory}/${project.build.finalName}</webappDirectory>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  
+  <repositories>
+    <repository>
+      <id>sencha-gpl-release</id>
+      <name>Open source licensed Sencha artifacts</name>
+      <url>https://maven.sencha.com/repo/gpl-release/</url>
+    </repository>
+  </repositories>
 
   <dependencies>
     <dependency>
@@ -33,6 +42,11 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+   	  <groupId>com.sencha.gxt</groupId>
+	  <artifactId>gxt</artifactId>
+	  <version>${gxtVersion}</version>
+	</dependency>
+		<dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.7</version>
@@ -69,8 +83,6 @@
             <goals>
               <goal>compile</goal>
               <goal>test</goal>
-              <goal>i18n</goal>
-              <goal>generateAsync</goal>
             </goals>
           </execution>
         </executions>
