@@ -1,9 +1,9 @@
-package org.sagebionetworks.metrics.server;
+package org.sagebionetworks.metrics.client.model;
 
 import java.io.Serializable;
 import java.util.Collection;
 
-public class SynapseProjectData implements Serializable {
+public class SynapseProject implements Serializable {
     String id;
     String name;
     Collection<String> contributors;

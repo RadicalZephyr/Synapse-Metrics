@@ -9,17 +9,19 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.sagebionetworks.metrics.client.model.SynapseProject;
+
 public class ProjectLogParser {
 
-    public static Collection<SynapseProjectData> parseSynapseProjectFile(File file) throws IOException {
+    public static Collection<SynapseProject> parseSynapseProjectFile(File file) throws IOException {
         FileInputStream inStream = new FileInputStream(file);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inStream));
 
-        List<SynapseProjectData> dataList = new ArrayList<SynapseProjectData>();
+        List<SynapseProject> dataList = new ArrayList<SynapseProject>();
         try {
             String line = reader.readLine();
             while (line!=null) {
-                SynapseProjectData data = parseSynapseProjectData(line);
+                SynapseProject data = parseSynapseProjectData(line);
                 if (data != null) {
                     dataList.add(data);
                 }
@@ -34,12 +36,12 @@ public class ProjectLogParser {
         return dataList;
     }
     
-    public static SynapseProjectData parseSynapseProjectData(String logLine){
-        SynapseProjectData projectData = null;
+    public static SynapseProject parseSynapseProjectData(String logLine){
+        SynapseProject projectData = null;
         String[] logArray = logLine.split(",");
 
         if (logArray.length == 4) {
-            projectData = new SynapseProjectData();
+            projectData = new SynapseProject();
             projectData.setId(logArray[0]);
             projectData.setName(logArray[1]);
             ArrayList<String> contributors = new ArrayList<String>();
