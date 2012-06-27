@@ -42,7 +42,13 @@ public class ProjectLogParser {
             projectData = new SynapseProjectData();
             projectData.setId(logArray[0]);
             projectData.setName(logArray[1]);
-            projectData.setContributors(logArray[2].split(" "));
+            ArrayList<String> contributors = new ArrayList<String>();
+            
+            for (String contributor : logArray[2].split(" ")) {
+                contributors.add(contributor);
+            }
+            
+            projectData.setContributors(contributors);
             projectData.setScore(Integer.parseInt(logArray[3]));
         }
 
