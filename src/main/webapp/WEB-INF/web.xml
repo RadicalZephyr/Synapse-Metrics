@@ -6,6 +6,15 @@
 <web-app>
 
   <!-- Servlets -->
+  <servlet>
+    <servlet-name>activeDataServiceImpl</servlet-name>
+    <servlet-class>org.sagebionetworks.metrics.client.ActiveDataServiceImpl</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>activeDataServiceImpl</servlet-name>
+    <url-pattern>/Metrics/activeData</url-pattern>
+  </servlet-mapping>
 
   <!-- Default page to serve -->
   <welcome-file-list>

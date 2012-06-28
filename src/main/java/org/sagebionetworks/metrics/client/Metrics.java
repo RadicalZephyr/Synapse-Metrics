@@ -1,9 +1,11 @@
 package org.sagebionetworks.metrics.client;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import org.sagebionetworks.metrics.client.model.SynapseProject;
 import org.sagebionetworks.metrics.client.model.SynapseUser;
 import org.sagebionetworks.metrics.client.model.SynapseUserProperties;
 
@@ -12,6 +14,7 @@ import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -27,15 +30,13 @@ import com.sencha.gxt.widget.core.client.grid.GroupingView;
  */
 public class Metrics implements EntryPoint, IsWidget {
 
+    private ActiveDataServiceAsync activeDataSvc;
+
     public Widget asWidget() {
         SynapseUserProperties properties = GWT.create(SynapseUserProperties.class);
         ListStore<SynapseUser> store = new ListStore<SynapseUser>(properties.id());
-        
-        // Load fake data into the store
-        store.add(new SynapseUser("geoff.shannon", "sagebase.org", new Date()));
-        store.add(new SynapseUser("bennett.ng", "sagebase.org", new Date()));
-        store.add(new SynapseUser("ted", "soe.ucsc.edu", new Date()));
-        store.add(new SynapseUser("kellrott", "soe.ucsc.edu", new Date()));
+
+        refreshActiveUserData(store);
         
         List<ColumnConfig<SynapseUser, ?>> cfgs = new ArrayList<ColumnConfig<SynapseUser, ?>>();
         ColumnConfig<SynapseUser, String> name = new ColumnConfig<SynapseUser, String>(properties.name(), 60);
@@ -79,4 +80,22 @@ public class Metrics implements EntryPoint, IsWidget {
         RootPanel.get().add(this);
     }
 
+    private void refreshActiveUserData(final ListStore<SynapseUser> store) {
+        if (activeDataSvc == null) {
+             activeDataSvc = GWT.create(ActiveDataService.class);
+        }
+
+        AsyncCallback<Collection<SynapseUser>> callback = new AsyncCallback<Collection<SynapseUser>>() {
+
+            public void onFailure(Throwable caught) {
+                // TODO Auto-generated method stub
+            }
+
+            public void onSuccess(Collection<SynapseUser> result) {
+                store.addAll(result);
+            }
+        };
+
+        activeDataSvc.getActiveUsers(callback);
+    }
 }
