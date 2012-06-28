@@ -110,7 +110,7 @@ public class CrowdLogParser {
 	 *
 	 * It suffices to recognize the second line.
 	 */
-	static Map<String, Collection<Long>> parseAuthenticationEvents(File dir, long startTimeStamp, long endTimeStamp) throws IOException, ParseException {
+	public static Map<String, Collection<Long>> parseAuthenticationEvents(File dir, long startTimeStamp, long endTimeStamp) throws IOException, ParseException {
 		File[] logFiles = dir.listFiles(new FileFilter() {
 			public boolean accept(File f) {
 				return (!f.isDirectory());
