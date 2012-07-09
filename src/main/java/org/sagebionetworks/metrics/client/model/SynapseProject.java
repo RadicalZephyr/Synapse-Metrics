@@ -8,7 +8,21 @@ public class SynapseProject implements Serializable {
     String name;
     Collection<String> contributors;
     int score;
+
+    private static int COUNTER = 0;
     
+    public SynapseProject() {
+        this.id = "synFake" + Integer.toString(COUNTER++);
+    }
+    
+    public SynapseProject(String id, String name,
+            Collection<String> contributors, int score) {
+        this.id = id;
+        this.name = name;
+        this.contributors = contributors;
+        this.score = score;
+    }
+
     public String getId() {
         return id;
     }

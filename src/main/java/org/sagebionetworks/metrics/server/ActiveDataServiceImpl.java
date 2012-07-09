@@ -1,16 +1,17 @@
-package org.sagebionetworks.metrics.client;
+package org.sagebionetworks.metrics.server;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Map;
 
+import org.sagebionetworks.metrics.client.ActiveDataService;
 import org.sagebionetworks.metrics.client.model.SynapseProject;
 import org.sagebionetworks.metrics.client.model.SynapseUser;
-import org.sagebionetworks.metrics.server.CrowdLogParser;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -21,6 +22,7 @@ public class ActiveDataServiceImpl extends RemoteServiceServlet implements
     private static final String PROJECT_LOG_FILE_PATH = "../../../data/activityDump.txt";
 
     private Collection<SynapseUser> activeUsers = new LinkedList<SynapseUser>();
+    private Collection<SynapseProject> activeProjects = new LinkedList<SynapseProject>();
     
     public ActiveDataServiceImpl() {
         try {
@@ -39,7 +41,12 @@ public class ActiveDataServiceImpl extends RemoteServiceServlet implements
     }
 
     public Collection<SynapseProject> getActiveProjects() {
-        return null;
+        activeProjects.add(new SynapseProject("syn1", "Fake Proj", 
+                    Arrays.asList("Brig Mecham", "Geoff Shannon"), 10));
+        activeProjects.add(new SynapseProject("syn2", "Still a Fake Proj",
+                Arrays.asList("Bennett Ng", "Mike Kellen"), 1));
+
+        return activeProjects;
     }
 
     private void runLogParser(int window) throws IOException, ParseException {
